@@ -1,17 +1,38 @@
-/**set the font **/
-
+/** set the font **/
 @import url("https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap");
 
 @import "tailwindcss";
+
+/* enable daisyUI and set default theme */
 @plugin "daisyui" {
   themes: light --default;
-};
+}
 
+/* define/override the light theme */
 @plugin "daisyui/theme" {
   name: "light";
   default: true;
 
-  --color-primary: blue;
-  --color-secondary: teal;
+  /* ===== BASE (structure & background) ===== */
+  --color-base-100: #DAD2D0;      /* page / header background */
+  --color-base-200: #D2C8C6;      /* cards / sections */
+  --color-base-300: #C9BFBD;      /* borders */
+  --color-base-content: #111111;  /* normal text */
+
+  /* ===== BRAND (identity & actions) ===== */
+  --color-primary: #94BB5D;       /* your logo green */
+  --color-secondary: #14B8A6;
+  --color-accent: #F59E0B;
+  --color-neutral: #111111;
+
+  /* ===== STATE (meaning & feedback) ===== */
+  --color-success: #22C55E;
+  --color-warning: #F59E0B;
+  --color-error: #EF4444;
+  --color-info: #0EA5E9;
 }
 
+/* global font usage */
+html, body {
+  font-family: "Urbanist", sans-serif;
+}
