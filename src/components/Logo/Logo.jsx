@@ -6,7 +6,7 @@ export default function Logo() {
     <div className='flex items-center'>
        
        <img className='w-20' src={logo} alt="" /> 
-        <h1 className='font-bold -ms-3'>Assetverse</h1>
+        <h1 className='font-bold -ms-7'>Assetverse</h1>
         
         
         </div>

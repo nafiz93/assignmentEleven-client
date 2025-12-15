@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <footer
       className="footer footer-horizontal footer-center  max-w-7xl mx-auto
- text-black p-10 shadow-2xl border-t border-primary "
+ text-black p-10 shadow-2xl border-t border-primary rounded-2xl"
     >
       <aside>
        <div className="-ms-4">
