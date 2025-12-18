@@ -1,20 +1,19 @@
 import React from "react";
 import Logo from "../../../components/Logo/Logo";
+import { NavLink } from "react-router";
+import useAuth from "@/hooks/useAuth";
 
 export default function Header() {
-  const link = (
-    <>
-      <li>
-        <a>Home</a>
-      </li>
 
-      <li>
-        <a>Join As Employee</a>
-      </li>
-      <li>
-        <a>Join As HR Manager</a>
-      </li>
-    </>
+  const {user}=useAuth();
+  console.log(user)
+  const link = (
+    <div className="flex gap-3">
+     <NavLink>Home</NavLink>
+
+      <NavLink to={'register/hr'}>Join As HR Manager</NavLink>
+     <NavLink to={'register/employee'}>Join As Employee</NavLink>
+    </div>
   );
   return (
     <div>
@@ -59,7 +58,7 @@ shadow-sm"
           <ul className="menu menu-horizontal px-1">{link}</ul>
         </div>
         <div className="navbar-end">
-          <a className="btn btn-primary">Button</a>
+          <a className="btn btn-primary">{user?"Signout":"Login"}</a>
         </div>
       </div>
     </div>

@@ -11,7 +11,7 @@ export default function Footer() {
        <div className="-ms-4">
          <Logo></Logo>
        </div>
-        <p className="font-bold">Providing reliable tech since 1992</p>
+        <p className="font-bold">Providing reliable tecK since 1992</p>
         <p>Copyright © {new Date().getFullYear()} - All right reserved</p>
       </aside>
       <nav>
