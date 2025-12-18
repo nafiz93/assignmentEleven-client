@@ -1,18 +1,21 @@
 import React from "react";
 import Logo from "../../../components/Logo/Logo";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 import useAuth from "@/hooks/useAuth";
 
 export default function Header() {
+  const { user, logoutUser } = useAuth();
 
-  const {user}=useAuth();
-  console.log(user)
+  const handleSignout = () => {
+    logoutUser();
+  };
+  console.log(user);
   const link = (
     <div className="flex gap-3">
-     <NavLink>Home</NavLink>
+      <NavLink>Home</NavLink>
 
-      <NavLink to={'register/hr'}>Join As HR Manager</NavLink>
-     <NavLink to={'register/employee'}>Join As Employee</NavLink>
+      <NavLink to={"register/hr"}>Join As HR Manager</NavLink>
+      <NavLink to={"register/employee"}>Join As Employee</NavLink>
     </div>
   );
   return (
@@ -47,18 +50,19 @@ shadow-sm"
               {link}
             </ul>
           </div>
-          
-          
-             <Logo></Logo>
-           
-           
-          
+
+          <Logo></Logo>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{link}</ul>
         </div>
         <div className="navbar-end">
-          <a className="btn btn-primary">{user?"Signout":"Login"}</a>
+          <Link to={"/login"}>
+            
+            <button onClick={handleSignout} className="btn btn-primary">
+              {user ? "Signout" : "Login"}
+            </button>
+          </Link>
         </div>
       </div>
     </div>

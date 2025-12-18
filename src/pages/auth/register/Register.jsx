@@ -2,13 +2,13 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router";
 import { useMutation } from "@tanstack/react-query";
-import useAxios from "../../../hooks/useAxios";
 import useAuth from "@/hooks/useAuth";
+import useAxios from "@/hooks/useAxios";
 
 export default function Register() {
   const { role } = useParams(); // "hr" or "employee"
-  const {registerUser}=useAuth();
-const axios=useAxios();
+  const { registerUser } = useAuth();
+  const axios = useAxios();
   const {
     register,
     handleSubmit,
@@ -24,8 +24,13 @@ const axios=useAxios();
       const formData = new FormData();
       formData.append("image", imageFile);
 
-      const imageApiUrl = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_host_key}`;
-      const imgRes = await fetch(imageApiUrl, { method: "POST", body: formData });
+      const imageApiUrl = `https://api.imgbb.com/1/upload?key=${
+        import.meta.env.VITE_image_host_key
+      }`;
+      const imgRes = await fetch(imageApiUrl, {
+        method: "POST",
+        body: formData,
+      });
       const imgJson = await imgRes.json();
 
       const companyLogoUrl = imgJson?.data?.url;
@@ -33,6 +38,7 @@ const axios=useAxios();
 
       // ✅ ONLY CHANGE: role is now dynamic (sent from route param)
       const payload = {
+        uid: data.uid,
         name: data.name,
         companyName: data.companyName,
         companyLogo: companyLogoUrl,
@@ -53,12 +59,17 @@ const axios=useAxios();
   });
 
   const handleRegistration = async (data) => {
-  console.log(data.name, data.email);
+    try {
+      // 1) Firebase signup
+      const cred = await registerUser(data.email, data.password);
+      const user = cred.user;
 
-  await registerUser(data.email, data.password);  // ✅ correct order
-  mutation.mutate(data);
-};
-
+      // 2) Send form data + uid to mutation
+      mutation.mutate({ ...data, uid: user.uid }); // ✅ correct
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <div className="card bg-base-100 w-full max-w-sm shadow-2xl my-10 mx-auto">
@@ -137,7 +148,9 @@ const axios=useAxios();
               className="btn btn-neutral mt-4"
               disabled={mutation.isPending}
             >
-              {mutation.isPending ? "Registering..." : `Join as ${role?.toUpperCase()}`}
+              {mutation.isPending
+                ? "Registering..."
+                : `Join as ${role?.toUpperCase()}`}
             </button>
 
             {mutation.isError && (
