@@ -1,13 +1,13 @@
 import React from 'react'
 import Footer from '@/pages/Shared/footer/Footer'
-import Header from '@/pages/Shared/header/Header'
 import { Outlet } from 'react-router'
+import EmpHeader from '@/pages/Shared/header/EmployeeHeader/EmpHeader'
 
 
 export default function DashboardEmp() {
   return (
   <div>
-      <Header></Header>
+      <EmpHeader></EmpHeader>
       <Outlet></Outlet>
       <Footer></Footer>
     </div>  )

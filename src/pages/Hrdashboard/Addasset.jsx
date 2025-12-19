@@ -67,7 +67,7 @@ export default function Addasset() {
   };
 
   return (
-    <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+    <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl my-10 mx-auto">
       <div className="card-body">
         <form onSubmit={handleSubmit(handleAddAsset)}>
           <fieldset className="fieldset">
