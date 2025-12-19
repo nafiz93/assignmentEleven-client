@@ -5,9 +5,13 @@ import Login from "../pages/auth/login/Login";
 import Authlayout from "../layout/Authlayout";
 import Register from "../pages/auth/register/Register";
 import DashboardHr from "@/layout/dashboard_hr/DashboardHr";
-import Assets from "@/pages/assets/Assets";
 import DashboardEmp from "@/layout/dashboard_emp/DashboardEmp";
-import Request from "@/pages/request/Request";
+import Addasset from "@/pages/Hrdashboard/Addasset";
+import Assetlist from "@/pages/Hrdashboard/Assetlist";
+import Allrequests from "@/pages/Hrdashboard/Allrequests";
+import Employeelist from "@/pages/Hrdashboard/Employeelist";
+import Hrprofile from "@/pages/Hrdashboard/Hrprofile";
+import Upgragepackage from "@/pages/Hrdashboard/Upgragepackage";
 
 export const router = createBrowserRouter(
   [
@@ -29,7 +33,7 @@ export const router = createBrowserRouter(
           path:'/dashboard/employee/Myrequest',
           Component:Request
         },
-       
+        
       ],
     },
     {
@@ -37,8 +41,28 @@ export const router = createBrowserRouter(
       element:<DashboardHr></DashboardHr>,
       children: [
         {
-          path:'/dashboard/hr/assets',
-          Component:Assets
+          path:'/dashboard/hr/addassets',
+          Component:Addasset
+        },
+        {
+          path:'/dashboard/hr/upgrade',
+          Component:Upgragepackage
+        },
+        {
+          path:'/dashboard/hr/assetlist',
+          Component:Assetlist
+        },
+        {
+          path:'/dashboard/hr/allrequest',
+          Component:Allrequests
+        },
+        {
+          path:'/dashboard/hr/employeelist',
+          Component:Employeelist
+        },
+        {
+          path:'/dashboard/hr/profile',
+          Component:Hrprofile
         },
        
       ],
