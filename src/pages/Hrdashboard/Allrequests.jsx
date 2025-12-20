@@ -47,11 +47,11 @@ export default function Allrequests() {
   
 
   const handleApprove = async (requestId) => {
-  console.log("requestId", requestId, "hrId:", hrId);
+  console.log("requestId", requestId, "hrId:", userId);
 //find the request which HR click for the Approve-----------------------------------------------2
   const reqDoc = async () => {
     const response = await axios.patch(`/requests/${requestId}/approve`, {
-     hrId
+     userId
     });
     return response.data;   
   };
@@ -60,12 +60,16 @@ export default function Allrequests() {
   console.log("Data from reqDoc:", data);
 
   //end of the code to find the request that hr clicks for the Approve----------------------------2
-
-
-
-  
 };
 
+const handleReject=async(requestId)=>{
+  const rejectedDoc=async()=>{
+    const response=await axios.patch(`/requests/${requestId}/reject`);
+    return response.data;
+  }
+  const data=await rejectedDoc();
+  console.log("rejected",data)
+}
 
 
 
@@ -155,7 +159,9 @@ export default function Allrequests() {
                           Approve
                         </button>
 
-                        <button className="px-4 py-2 rounded-md border border-gray-800 text-gray-900 text-sm font-semibold hover:bg-black hover:text-white transition">
+                        <button 
+                        onClick={()=>handleReject(item._id)}
+                        className="px-4 py-2 rounded-md border border-gray-800 text-gray-900 text-sm font-semibold hover:bg-black hover:text-white transition">
                           Reject
                         </button>
                       </div>
