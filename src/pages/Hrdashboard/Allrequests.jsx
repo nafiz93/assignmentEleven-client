@@ -1,6 +1,6 @@
 import useAuth from "@/hooks/useAuth";
 import useAxios from "@/hooks/useAxios";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import React from "react";
 
 export default function Allrequests() {
@@ -8,23 +8,14 @@ export default function Allrequests() {
   const axios = useAxios();
   // const queryClient = useQueryClient();
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-[#e9e4e3] flex items-center justify-center">
-        Loading...
-      </div>
-    );
-  }
-
   const userId = user?.uid;
-//find the HR---------------------------------------------------------------------------------1
 
+  //find the HR---------------------------------------------------------------------------------1
   const getCompanyId = async () => {
     const response = await axios.get(`/users?uid=${userId}`);
     return response.data._id;
   };
-  //so here the whole thing is by the firebase uid getting the specific hr then get his mongodb unique id
-  //so firebase id to mongoid and this mongoid is the hrId
+
   const { data: hrId, isLoading: companyLoading } = useQuery({
     queryKey: ["companyId", userId],
     queryFn: getCompanyId,
@@ -36,47 +27,44 @@ export default function Allrequests() {
     return response.data;
   };
 
-  const { data: requests = [], isLoading: requestsLoading } = useQuery({
+  const {
+    data: requests = [],
+    isLoading: requestsLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["requests", hrId],
     queryFn: getRequests,
     enabled: !!hrId,
   });
 
   //end of the code to find the HR--------------------------------------------------------------1
-
-  
+  const approveMutation = useMutation({
+    mutationFn: async (requestId) => {
+      const response = await axios.patch(`/requests/${requestId}/approve`, {
+        userId,
+      });
+      return response.data;
+    },
+    onSuccess: () => {
+      refetch();
+    },
+  });
 
   const handleApprove = async (requestId) => {
-  console.log("requestId", requestId, "hrId:", userId);
-//find the request which HR click for the Approve-----------------------------------------------2
-  const reqDoc = async () => {
-    const response = await axios.patch(`/requests/${requestId}/approve`, {
-     userId
-    });
-    return response.data;   
+    console.log("requestId", requestId, "hrId:", userId);
+    approveMutation.mutate(requestId);
   };
 
-  const data = await reqDoc();
-  console.log("Data from reqDoc:", data);
+  const handleReject = async (requestId) => {
+    const rejectedDoc = async () => {
+      const response = await axios.patch(`/requests/${requestId}/reject`);
+      return response.data;
+    };
+    const data = await rejectedDoc();
+    console.log("rejected", data);
+  };
 
-  //end of the code to find the request that hr clicks for the Approve----------------------------2
-};
-
-const handleReject=async(requestId)=>{
-  const rejectedDoc=async()=>{
-    const response=await axios.patch(`/requests/${requestId}/reject`);
-    return response.data;
-  }
-  const data=await rejectedDoc();
-  console.log("rejected",data)
-}
-
-
-
-
-
-
-  if (companyLoading || requestsLoading) {
+  if (loading || companyLoading || requestsLoading) {
     return (
       <div className="min-h-screen bg-[#e9e4e3] flex items-center justify-center">
         Loading...
@@ -159,9 +147,10 @@ const handleReject=async(requestId)=>{
                           Approve
                         </button>
 
-                        <button 
-                        onClick={()=>handleReject(item._id)}
-                        className="px-4 py-2 rounded-md border border-gray-800 text-gray-900 text-sm font-semibold hover:bg-black hover:text-white transition">
+                        <button
+                          onClick={() => handleReject(item._id)}
+                          className="px-4 py-2 rounded-md border border-gray-800 text-gray-900 text-sm font-semibold hover:bg-black hover:text-white transition"
+                        >
                           Reject
                         </button>
                       </div>
