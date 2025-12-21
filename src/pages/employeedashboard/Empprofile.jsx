@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "@/hooks/useAuth";
 import useAxios from "@/hooks/useAxios";
 
-export default function Hrprofile() {
+export default function Empprofile() {
   const { user, loading } = useAuth();
   const axios = useAxios();
 
@@ -40,8 +40,8 @@ export default function Hrprofile() {
 
   // SIMPLE handleChange
   const handleChange = (e) => {
-    const field = e.target.name;
-    const value = e.target.value;
+    const field = e.target.name;  //get the name of the input like name="name" or name="email" 
+    const value = e.target.value;  //get the value of this input  like akram or akram@gmail.com
 
     const newForm = { ...form };
     newForm[field] = value;

@@ -1,5 +1,3 @@
-
-
 import { createBrowserRouter } from "react-router";
 import Rootlayout from "../layout/Rootlayout";
 import Home from "../pages/Home/Home/Home";
@@ -19,6 +17,7 @@ import Employeeassets from "@/pages/employeedashboard/Employeeassets";
 import Myrequest from "@/pages/employeedashboard/Myrequest";
 import Myasset from "@/pages/employeedashboard/Myasset";
 import Sendrequest from "@/pages/employeedashboard/Sendrequest";
+import Empprofile from "@/pages/employeedashboard/Empprofile";
 
 export const router = createBrowserRouter([
   {
@@ -50,6 +49,10 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/employee/myasset",
         Component: Myasset,
+      },
+      {
+        path: "/dashboard/employee/empprofile",
+        Component: Empprofile,
       },
       {
         // IMPORTANT: :companyId (matches useParams() usage)

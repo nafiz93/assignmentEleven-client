@@ -16,7 +16,7 @@ export default function EmpHeader() {
       <NavLink to="/dashboard/employee/myrequest">Request status</NavLink>
       <NavLink to="/dashboard/employee/myasset">My Asset</NavLink>
      
-      <NavLink to="/dashboard/hr/profile">Profile</NavLink>
+      <NavLink to="/dashboard/employee/empprofile">Profile</NavLink>
     </div>
   );
   return (
