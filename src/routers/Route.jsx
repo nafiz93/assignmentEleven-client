@@ -16,6 +16,9 @@ import Hrprofile from "@/pages/Hrdashboard/Hrprofile";
 import Upgragepackage from "@/pages/Hrdashboard/Upgragepackage";
 import EmployeeDashboard from "@/pages/employeedashboard/EmployeeDashboard";
 import Employeeassets from "@/pages/employeedashboard/Employeeassets";
+import Myrequest from "@/pages/employeedashboard/Myrequest";
+import Myasset from "@/pages/employeedashboard/Myasset";
+import Sendrequest from "@/pages/employeedashboard/Sendrequest";
 
 export const router = createBrowserRouter([
   {
@@ -35,6 +38,18 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/employee/home",
         Component: EmployeeDashboard,
+      },
+      {
+        path: "/dashboard/employee/myrequest",
+        Component: Myrequest,
+      },
+      {
+        path: "/dashboard/employee/sendrequest",
+        Component: Sendrequest,
+      },
+      {
+        path: "/dashboard/employee/myasset",
+        Component: Myasset,
       },
       {
         // IMPORTANT: :companyId (matches useParams() usage)

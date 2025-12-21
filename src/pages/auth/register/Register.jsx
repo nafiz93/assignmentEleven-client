@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useMutation } from "@tanstack/react-query";
 import useAuth from "@/hooks/useAuth";
 import useAxios from "@/hooks/useAxios";
@@ -9,6 +9,7 @@ export default function Register() {
   const { role } = useParams(); // "hr" or "employee"
   const { registerUser } = useAuth();
   const axios = useAxios();
+  const navigate=useNavigate();
   const {
     register,
     handleSubmit,
@@ -65,7 +66,13 @@ export default function Register() {
       const user = cred.user;
 
       // 2) Send form data + uid to mutation
-      mutation.mutate({ ...data, uid: user.uid }); // ✅ correct
+      mutation.mutate({ ...data, uid: user.uid }); 
+       if (role === "hr") {
+      navigate("/dashboard/hr");
+    } else {
+      navigate("/dashboard/employee");
+    }
+      
     } catch (err) {
       console.error(err);
     }
