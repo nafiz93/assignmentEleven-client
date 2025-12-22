@@ -1,4 +1,4 @@
-import useAxiosSecure from "@/hooks/useAxiosSecure";
+import useAxios from "@/hooks/useAxios";
 import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 
@@ -10,7 +10,7 @@ export default function PaymentSuccess() {
   const uId = params.get("uId");
   const plan = params.get("plan");
   
-const axiosSecure = useAxiosSecure();
+const axiosSecure = useAxios();
 
  useEffect(() => {
   if (!uId || !plan) {
