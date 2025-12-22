@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "@/hooks/useAuth";
-import useAxios from "@/hooks/useAxios";
+import useAxiosSecure from "@/hooks/useAxiosSecure";
 
 export default function Empprofile() {
   const { user, loading } = useAuth();
-  const axios = useAxios();
+  const axiosSecure=useAxiosSecure();
 
   const userId = user?.uid;
 
@@ -17,7 +17,7 @@ export default function Empprofile() {
 
   // Fetch logged-in HR data
   const getUser = async () => {
-    const res = await axios.get(`/users?uid=${userId}`);
+    const res = await axiosSecure.get(`/users?uid=${userId}`);
     return res.data;
   };
 
@@ -53,7 +53,7 @@ export default function Empprofile() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await axios.patch(`/users?uid=${userId}`, form);
+    await axiosSecure.patch(`/users?uid=${userId}`, form);
     refetch();
     alert("Profile updated");
   };
@@ -73,7 +73,7 @@ export default function Empprofile() {
         className="w-full max-w-md bg-white p-6 rounded-xl shadow space-y-4"
       >
         <h2 className="text-xl font-semibold text-center text-gray-800">
-          HR Profile
+          Employee Profile
         </h2>
 
         <div>

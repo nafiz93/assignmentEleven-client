@@ -2,10 +2,10 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import useAuth from "@/hooks/useAuth";
-import useAxios from "@/hooks/useAxios";
+import useAxiosSecure from "@/hooks/useAxiosSecure";
 
 export default function Addasset() {
-  const axios = useAxios();
+  const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const hruid = user?.uid;
 
@@ -45,7 +45,7 @@ export default function Addasset() {
         hruid,
       };
 
-      const res = await axios.post("/assets", payload);
+      const res = await axiosSecure.post("/assets", payload);
       return res.data;
     },
 

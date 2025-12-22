@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "@/hooks/useAuth";
-import useAxios from "@/hooks/useAxios";
+import useAxiosSecure from "@/hooks/useAxiosSecure";
 
 export default function Hrprofile() {
   const { user, loading } = useAuth();
-  const axios = useAxios();
+  const axiosSecure=useAxiosSecure()
 
   const userId = user?.uid;
 
@@ -17,7 +17,7 @@ export default function Hrprofile() {
 
   // Fetch logged-in HR data
   const getUser = async () => {
-    const res = await axios.get(`/users?uid=${userId}`);
+    const res = await axiosSecure.get(`/users?uid=${userId}`);
     return res.data;
   };
 
@@ -53,7 +53,7 @@ export default function Hrprofile() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await axios.patch(`/users?uid=${userId}`, form);
+    await axiosSecure.patch(`/users?uid=${userId}`, form);
     refetch();
     alert("Profile updated");
   };

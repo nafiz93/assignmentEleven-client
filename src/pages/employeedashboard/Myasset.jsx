@@ -1,18 +1,18 @@
 import useAuth from "@/hooks/useAuth";
-import useAxios from "@/hooks/useAxios";
+import useAxiosSecure from "@/hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 
 export default function Myasset() {
   const { user, loading } = useAuth();
-  const axios = useAxios();
+  const axiosSecure = useAxiosSecure();
   // const queryClient = useQueryClient();
 
   const userId = user?.uid;
 
   //find the HR--------------------------------------------------------------------------------userId
   const getRequests = async () => {
-    const res = await axios.get(`/requests/myasset?empid=${userId}`);
+    const res = await axiosSecure.get(`/requests/myasset?empid=${userId}`);
     return res.data;
   };
 

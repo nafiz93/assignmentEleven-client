@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import useAuth from "@/hooks/useAuth";
-import useAxios from "@/hooks/useAxios";
+import useAxiosSecure from "@/hooks/useAxiosSecure";
 
 export default function Assetlist() {
   const { user } = useAuth();
-  const axios = useAxios();
+  const axiosSecure = useAxiosSecure();
 
   const [assets, setAssets] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -20,7 +20,7 @@ export default function Assetlist() {
 
   const fetchAssets = async () => {
     try {
-      const res = await axios.get(`/assets?uid=${user.uid}`);
+      const res = await axiosSecure.get(`/assets?uid=${user.uid}`);
       setAssets(res.data);
     } catch (error) {
       console.error("Failed to load assets", error);
@@ -40,7 +40,7 @@ export default function Assetlist() {
     if (!ok) return;
 
     try {
-      await axios.delete(`/assets/${id}?uid=${user.uid}`);
+      await axiosSecure.delete(`/assets/${id}?uid=${user.uid}`);
       setAssets((prev) => prev.filter((a) => a._id !== id));
     } catch (err) {
       alert(err?.response?.data?.message || "Delete failed");

@@ -1,16 +1,16 @@
 import useAuth from '@/hooks/useAuth';
-import useAxios from '@/hooks/useAxios';
+import useAxiosSecure from '@/hooks/useAxiosSecure';
 import { useQueries, useQuery } from '@tanstack/react-query';
 import React from 'react';
 
 export default function Employeelist() {
-  const axios = useAxios();
+  const axiosSecure=useAxiosSecure();
   const { user, loading } = useAuth();
 
   const userId = user?.uid;
 
   const getEmployee = async () => {
-    const response = await axios.get(`/users?uid=${userId}`);
+    const response = await axiosSecure.get(`/users?uid=${userId}`);
     return response.data._id;
   };
 
@@ -21,7 +21,7 @@ export default function Employeelist() {
   });
 
   const getEmployees = async () => {
-    const response = await axios.get(
+    const response = await axiosSecure.get(
       `/employees/incompany?companyId=${hrId}`
     );
     return response.data;
@@ -37,7 +37,7 @@ export default function Employeelist() {
   });
 
   const getUserByUid = async (uid) => {
-    const res = await axios.get(`/users?uid=${uid}`);
+    const res = await axiosSecure.get(`/users?uid=${uid}`);
     return res.data;
   };
 

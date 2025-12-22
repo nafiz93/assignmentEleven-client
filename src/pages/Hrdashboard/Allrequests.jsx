@@ -1,18 +1,18 @@
 import useAuth from "@/hooks/useAuth";
-import useAxios from "@/hooks/useAxios";
+import useAxiosSecure from "@/hooks/useAxiosSecure";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import React from "react";
 
 export default function Allrequests() {
   const { user, loading } = useAuth();
-  const axios = useAxios();
+  const axiosSecure = useAxiosSecure();
   // const queryClient = useQueryClient();
 
   const userId = user?.uid;
 
   //find the HR---------------------------------------------------------------------------------1
   const getCompanyId = async () => {
-    const response = await axios.get(`/users?uid=${userId}`);
+    const response = await axiosSecure.get(`/users?uid=${userId}`);
     return response.data._id;
   };
 
@@ -23,7 +23,7 @@ export default function Allrequests() {
   });
 
   const getRequests = async () => {
-    const response = await axios.get(`/requests?companyId=${hrId}`);
+    const response = await axiosSecure.get(`/requests?companyId=${hrId}`);
     return response.data;
   };
 
@@ -40,7 +40,7 @@ export default function Allrequests() {
   //end of the code to find the HR--------------------------------------------------------------1
   const approveMutation = useMutation({
     mutationFn: async (requestId) => {
-      const response = await axios.patch(`/requests/${requestId}/approve`, {
+      const response = await axiosSecure.patch(`/requests/${requestId}/approve`, {
         userId,
       });
       return response.data;
@@ -57,7 +57,7 @@ export default function Allrequests() {
 
   const handleReject = async (requestId) => {
     const rejectedDoc = async () => {
-      const response = await axios.patch(`/requests/${requestId}/reject`);
+      const response = await axiosSecure.patch(`/requests/${requestId}/reject`);
       return response.data;
     };
     const data = await rejectedDoc();

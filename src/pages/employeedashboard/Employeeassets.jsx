@@ -1,29 +1,28 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import useAuth from "@/hooks/useAuth";
+import useAxiosSecure from "@/hooks/useAxiosSecure";
 
 export default function EmployeeAssets() {
   const { user } = useAuth();
   const { companyId } = useParams();
-
+const axiosSecure = useAxiosSecure();
   const [assets, setAssets] = useState([]);
 
-  useEffect(() => {
-    if (!companyId) return;
+ useEffect(() => {
+  if (!companyId) return;
 
-    fetch(`http://localhost:3000/assets/${companyId}`)
-      .then(async (res) => {
-        const data = await res.json().catch(() => null);
-        if (!res.ok) throw new Error(data?.message || "Failed to load assets");
-        return data;
-      })
-      .then((data) => setAssets(Array.isArray(data) ? data : []))
-      .catch((err) => {
-        console.error("load assets failed:", err);
-        setAssets([]);
-      });
-  }, [companyId]);
-
+  axiosSecure
+    .get(`/assets/${companyId}`)
+    .then((res) => {
+      const data = res.data;
+      setAssets(Array.isArray(data) ? data : []);
+    })
+    .catch((err) => {
+      console.error("load assets failed:", err);
+      setAssets([]);
+    });
+}, [companyId, axiosSecure]);
   function requestAsset(assetId) {
     if (!user?.uid || !user?.email) {
       alert("You must be logged in to request an asset.");

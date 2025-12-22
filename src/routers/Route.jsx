@@ -16,7 +16,6 @@ import EmployeeDashboard from "@/pages/employeedashboard/EmployeeDashboard";
 import Employeeassets from "@/pages/employeedashboard/Employeeassets";
 import Myrequest from "@/pages/employeedashboard/Myrequest";
 import Myasset from "@/pages/employeedashboard/Myasset";
-import Sendrequest from "@/pages/employeedashboard/Sendrequest";
 import Empprofile from "@/pages/employeedashboard/Empprofile";
 import Privateroute from "./Privateroute";
 
@@ -43,10 +42,7 @@ export const router = createBrowserRouter([
         path: "/dashboard/employee/myrequest",
         Component: Myrequest,
       },
-      {
-        path: "/dashboard/employee/sendrequest",
-        Component: Sendrequest,
-      },
+    
       {
         path: "/dashboard/employee/myasset",
         Component: Myasset,

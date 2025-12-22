@@ -1,47 +1,54 @@
 import useAuth from "@/hooks/useAuth";
+import useAxiosSecure from "@/hooks/useAxiosSecure";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function EmployeeDashboard() {
   const { user } = useAuth();
   const navigate = useNavigate();
-
+const axiosSecure = useAxiosSecure();
   const [myCompanyId, setMyCompanyId] = useState(null);
   const [companies, setCompanies] = useState([]);
   const [selectedCompanyId, setSelectedCompanyId] = useState("");
 
   // STEP 1: check if employee already affiliated (old employee)
   useEffect(() => {
-    if (!user?.uid) return;
+  if (!user?.uid) return;
 
-    fetch(`http://localhost:3000/employee-company?employeeUid=${user.uid}`)
-      .then(async (res) => {
-        if (res.status === 404) return null; // first time employee
-        return res.json();
-      })
-      .then((data) => {
-        if (data?.companyId) {
-          setMyCompanyId(data.companyId);
-          navigate(`/dashboard/employee/assets/${data.companyId}`);
-        }
-      })
-      .catch((err) => {
-        console.error("employee-company check failed:", err);
-      });
-  }, [user?.uid, navigate]);
+  axiosSecure
+    .get(`/employee-company`, {
+      params: { employeeUid: user.uid },
+      validateStatus: (status) => status === 404 || (status >= 200 && status < 300),
+    })
+    .then((res) => {
+      if (res.status === 404) return null; // first-time employee
+
+      const data = res.data;
+      if (data?.companyId) {
+        setMyCompanyId(data.companyId);
+        navigate(`/dashboard/employee/assets/${data.companyId}`);
+      }
+    })
+    .catch((err) => {
+      console.error("employee-company check failed:", err);
+    });
+}, [user?.uid, axiosSecure, navigate]);
 
   // STEP 2: if first time -> load companies list for dropdown
-  useEffect(() => {
-    if (!user?.uid) return;
-    if (myCompanyId) return;
+ useEffect(() => {
+  if (!user?.uid) return;
+  if (myCompanyId) return;
 
-    fetch("http://localhost:3000/companies/list")
-      .then((res) => res.json())
-      .then((data) => setCompanies(Array.isArray(data) ? data : []))
-      .catch((err) => {
-        console.error("companies list failed:", err);
-      });
-  }, [user?.uid, myCompanyId]);
+  axiosSecure
+    .get("/companies/list")
+    .then((res) => {
+      const data = res.data;
+      setCompanies(Array.isArray(data) ? data : []);
+    })
+    .catch((err) => {
+      console.error("companies list failed:", err);
+    });
+}, [user?.uid, myCompanyId, axiosSecure]);
 
   // STEP 3: Continue -> save affiliation then go to assets
   async function handleContinue(e) {
