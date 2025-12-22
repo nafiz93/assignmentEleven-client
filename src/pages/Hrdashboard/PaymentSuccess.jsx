@@ -1,3 +1,4 @@
+import useAxiosSecure from "@/hooks/useAxiosSecure";
 import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 
@@ -8,24 +9,26 @@ export default function PaymentSuccess() {
 
   const uId = params.get("uId");
   const plan = params.get("plan");
+  
+const axiosSecure = useAxiosSecure();
 
-  useEffect(() => {
-    if (!uId || !plan) {
-      setMsg("Missing uId or plan. Cannot upgrade.");
-      return;
-    }
+ useEffect(() => {
+  if (!uId || !plan) {
+    setMsg("Missing uId or plan. Cannot upgrade.");
+    return;
+  }
 
-    fetch("http://localhost:3000/upgrade-after-payment", {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ uId, plan }),
+  axiosSecure
+    .patch("/upgrade-after-payment", { uId, plan })
+    .then((res) => {
+      setMsg(res.data?.message || "Upgraded");
+      setTimeout(() => navigate("/dashboard/hr"), 1000);
     })
-      .then((res) => res.json())
-      .then((data) => {
-        setMsg(data.message || "Upgraded");
-        setTimeout(() => navigate("/dashboard/hr"), 1000); // change if needed
-      });
-  }, [uId, plan, navigate]);
+    .catch((err) => {
+      console.error("upgrade failed:", err);
+      setMsg("Upgrade failed. Please try again.");
+    });
+}, [uId, plan, axiosSecure, navigate]);
 
   return (
     <div style={{ padding: 20 }}>

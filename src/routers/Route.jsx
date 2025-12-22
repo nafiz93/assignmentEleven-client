@@ -18,6 +18,8 @@ import Myasset from "@/pages/employeedashboard/Myasset";
 import Empprofile from "@/pages/employeedashboard/Empprofile";
 import Privateroute from "./Privateroute";
 import Upgrade from "@/pages/Hrdashboard/Upgrade";
+import PaymentSuccess from "@/pages/Hrdashboard/PaymentSuccess";
+import PaymentCancel from "@/pages/Hrdashboard/PaymentCancel";
 
 export const router = createBrowserRouter([
   {
@@ -32,7 +34,11 @@ export const router = createBrowserRouter([
   },
   {
     path: "/dashboard/employee",
-    element: <Privateroute><DashboardEmp /></Privateroute>,
+    element: (
+      <Privateroute>
+        <DashboardEmp />
+      </Privateroute>
+    ),
     children: [
       {
         path: "/dashboard/employee/home",
@@ -42,7 +48,7 @@ export const router = createBrowserRouter([
         path: "/dashboard/employee/myrequest",
         Component: Myrequest,
       },
-    
+
       {
         path: "/dashboard/employee/myasset",
         Component: Myasset,
@@ -60,7 +66,13 @@ export const router = createBrowserRouter([
   },
   {
     path: "/dashboard/hr",
-    element: <Privateroute><DashboardHr /></Privateroute>,
+    element: (
+      <Privateroute>
+        <DashboardHr />
+      </Privateroute>
+    ),
+
+    
     children: [
       { path: "/dashboard/hr/addassets", Component: Addasset },
       { path: "/dashboard/hr/upgrade", Component: Upgrade },
@@ -68,8 +80,18 @@ export const router = createBrowserRouter([
       { path: "/dashboard/hr/allrequest", Component: Allrequests },
       { path: "/dashboard/hr/employeelist", Component: Employeelist },
       { path: "/dashboard/hr/profile", Component: Hrprofile },
+      
     ],
   },
+
+  {
+        path: "/payment-success",
+        element: <PaymentSuccess />,
+      },
+      {
+        path: "/payment-cancel",
+        element: <PaymentCancel />,
+      },
   {
     path: "/",
     Component: Authlayout,

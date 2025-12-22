@@ -1,31 +1,47 @@
 import { useEffect, useState } from "react";
 import useAuth from "@/hooks/useAuth";
+import useAxiosSecure from "@/hooks/useAxiosSecure";
 
 export default function Upgrade() {
   const { user } = useAuth();
 
   const [plans, setPlans] = useState([]);
+  
+const axiosSecure = useAxiosSecure();
+
 
   // Load plans from backend
   useEffect(() => {
-    fetch("http://localhost:3000/plans")
-      .then((res) => res.json())
-      .then((data) => setPlans(data));
-  }, []);
+  axiosSecure
+    .get("/plans")
+    .then((res) => {
+      setPlans(Array.isArray(res.data) ? res.data : []);
+    })
+    .catch((err) => {
+      console.error("plans load failed:", err);
+      setPlans([]);
+    });
+}, [axiosSecure]);
 
   // Create checkout and redirect to Stripe
-  function handleUpgrade(planName) {
-    fetch("http://localhost:3000/create-checkout", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ uId: user.uid, plan: planName }),
+ function handleUpgrade(planName) {
+  axiosSecure
+    .post("/create-checkout", {
+      uId: user.uid,
+      plan: planName,
     })
-      .then((res) => res.json())
-      .then((data) => {
-        window.location.href = data.url;
-      });
-  }
-
+    .then((res) => {
+      const url = res.data?.url;
+      if (url) {
+        window.location.href = url;
+      } else {
+        console.error("Checkout URL missing in response");
+      }
+    })
+    .catch((err) => {
+      console.error("checkout creation failed:", err);
+    });
+}
   if (!user) return <p>Please login.</p>;
 
   return (
