@@ -36,3 +36,11 @@
 html, body {
   font-family: "Urbanist", sans-serif;
 }
+
+
+/*navlink active */
+
+a[aria-current="page"] {
+  color: black;
+  border-bottom: 2px solid  #94BB5D;
+}
