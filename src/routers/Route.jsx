@@ -11,13 +11,13 @@ import Assetlist from "@/pages/Hrdashboard/Assetlist";
 import Allrequests from "@/pages/Hrdashboard/Allrequests";
 import Employeelist from "@/pages/Hrdashboard/Employeelist";
 import Hrprofile from "@/pages/Hrdashboard/Hrprofile";
-import Upgragepackage from "@/pages/Hrdashboard/Upgragepackage";
 import EmployeeDashboard from "@/pages/employeedashboard/EmployeeDashboard";
 import Employeeassets from "@/pages/employeedashboard/Employeeassets";
 import Myrequest from "@/pages/employeedashboard/Myrequest";
 import Myasset from "@/pages/employeedashboard/Myasset";
 import Empprofile from "@/pages/employeedashboard/Empprofile";
 import Privateroute from "./Privateroute";
+import Upgrade from "@/pages/Hrdashboard/Upgrade";
 
 export const router = createBrowserRouter([
   {
@@ -63,7 +63,7 @@ export const router = createBrowserRouter([
     element: <Privateroute><DashboardHr /></Privateroute>,
     children: [
       { path: "/dashboard/hr/addassets", Component: Addasset },
-      { path: "/dashboard/hr/upgrade", Component: Upgragepackage },
+      { path: "/dashboard/hr/upgrade", Component: Upgrade },
       { path: "/dashboard/hr/assetlist", Component: Assetlist },
       { path: "/dashboard/hr/allrequest", Component: Allrequests },
       { path: "/dashboard/hr/employeelist", Component: Employeelist },
