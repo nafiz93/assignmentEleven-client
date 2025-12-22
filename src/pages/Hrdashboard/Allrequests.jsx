@@ -52,7 +52,7 @@ export default function Allrequests() {
   });
 
   const handleApprove = async (requestId) => {
-    console.log("requestId", requestId, "hrId:", userId);
+   // console.log("requestId", requestId, "hrId:", userId);
     approveMutation.mutate(requestId);
   };
 
@@ -62,7 +62,7 @@ export default function Allrequests() {
       return response.data;
     };
     const data = await rejectedDoc();
-    console.log("rejected", data);
+   // console.log("rejected", data);
   };
 
   if (loading || companyLoading || requestsLoading) {

@@ -9,7 +9,7 @@ export default function EmpHeader() {
   const handleSignout = () => {
     logoutUser();
   };
-  console.log(user);
+ // console.log(user);
   const link = (
     <div className="flex gap-3">
       <NavLink to="/dashboard/employee/home">Send Request</NavLink>
