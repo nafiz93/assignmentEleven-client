@@ -79,7 +79,7 @@ export default function Assetlist() {
     }
 
     try {
-      await axios.patch(`/assets/${editingId}?uid=${user.uid}`, {
+      await axiosSecure.patch(`/assets/${editingId}?uid=${user.uid}`, {
         name: editForm.name,
         type: editForm.type,
         quantity: qty,
