@@ -1,12 +1,13 @@
-import React, { useContext } from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
-import { AuthContext } from '../authcontext/AuthContext';
-import Loading from './Loading';
+import useAuth from '@/hooks/useAuth';
+import Loading from '@/pages/loadingPage/Loading';
+import React, { } from 'react';
+import { useLocation } from 'react-router';
+
 
 const Privateroute = ({children}) => {
-    const {user,loading}=useContext(AuthContext)
+    const {user,loading}=useAuth()
     const location=useLocation();
-   if (loading) return <Loading />;
+   if (loading) return <Loading></Loading>;
 
 
   if (user) {

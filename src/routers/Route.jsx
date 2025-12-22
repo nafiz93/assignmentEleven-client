@@ -18,6 +18,7 @@ import Myrequest from "@/pages/employeedashboard/Myrequest";
 import Myasset from "@/pages/employeedashboard/Myasset";
 import Sendrequest from "@/pages/employeedashboard/Sendrequest";
 import Empprofile from "@/pages/employeedashboard/Empprofile";
+import Privateroute from "./Privateroute";
 
 export const router = createBrowserRouter([
   {
@@ -32,7 +33,7 @@ export const router = createBrowserRouter([
   },
   {
     path: "/dashboard/employee",
-    element: <DashboardEmp />,
+    element: <Privateroute><DashboardEmp /></Privateroute>,
     children: [
       {
         path: "/dashboard/employee/home",
@@ -63,7 +64,7 @@ export const router = createBrowserRouter([
   },
   {
     path: "/dashboard/hr",
-    element: <DashboardHr />,
+    element: <Privateroute><DashboardHr /></Privateroute>,
     children: [
       { path: "/dashboard/hr/addassets", Component: Addasset },
       { path: "/dashboard/hr/upgrade", Component: Upgragepackage },

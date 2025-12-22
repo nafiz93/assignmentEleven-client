@@ -64,7 +64,7 @@ export default function Employeelist() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
+    <div className="min-h-scree p-8">
       <h1 className="text-2xl font-semibold mb-6">Company Employees</h1>
 
       {users.length === 0 ? (
@@ -74,7 +74,7 @@ export default function Employeelist() {
           {users.map((user) => (
             <div
               key={user.uid}
-              className="bg-white rounded-xl shadow-sm border border-primary p-6 hover:shadow-md transition"
+              className="bg-primary rounded-xl shadow-sm border border-primary p-6 hover:shadow-md transition"
             >
               <div className="flex items-center gap-4 mb-4">
                 <div className="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-semibold text-lg">

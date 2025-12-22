@@ -67,10 +67,10 @@ export default function Hrprofile() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6">
+    <div className="min-h-screen flex items-center justify-center  p-6">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-md bg-white p-6 rounded-xl shadow space-y-4"
+        className="w-full max-w-md  p-6 rounded-xl shadow-2xl border border-primary space-y-4"
       >
         <h2 className="text-xl font-semibold text-center text-gray-800">
           HR Profile
