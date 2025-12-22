@@ -7,6 +7,8 @@ import AuthProvider from "./AuthProvider/Authprovider.jsx";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
+import "./chartSetup"; 
+
 const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root")).render(

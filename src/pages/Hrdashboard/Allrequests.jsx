@@ -1,3 +1,4 @@
+import RequestsPie from "@/components/RequestsPie";
 import useAuth from "@/hooks/useAuth";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -162,6 +163,10 @@ export default function Allrequests() {
               ))}
             </tbody>
           </table>
+        </div>
+
+        <div className="lg:col-span-1">
+          <RequestsPie requests={requests} max={200} />
         </div>
       </div>
     </div>
