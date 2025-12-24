@@ -29,26 +29,21 @@ const axiosSecure = useAxiosSecure();
       return;
     }
 
-    fetch("http://localhost:3000/requests", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        employeeUid: user.uid,
-        employeeEmail: user.email,
-        companyId,
-        assetId,
-      }),
-    })
-      .then(async (res) => {
-        const data = await res.json().catch(() => null);
-        if (!res.ok) throw new Error(data?.message || "Request failed");
-        return data;
-      })
-      .then(() => alert("Request sent (pending)"))
-      .catch((err) => {
-        console.error("request asset failed:", err);
-        alert(err.message || "Request failed");
-      });
+    axiosSecure
+  .post("/requests", {
+    employeeUid: user.uid,
+    employeeEmail: user.email,
+    companyId,
+    assetId,
+  })
+  .then(() => {
+    alert("Request sent (pending)");
+  })
+  .catch((err) => {
+    console.error("request asset failed:", err);
+    alert(err?.response?.data?.message || "Request failed");
+  });
+
   }
 
   return (

@@ -59,28 +59,18 @@ const axiosSecure = useAxiosSecure();
       return;
     }
 
-    try {
-      const res = await fetch("http://localhost:3000/employee-company", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          employeeUid: user.uid,
-          companyId: selectedCompanyId,
-        }),
-      });
+   try {
+  await axiosSecure.post("/employee-company", {
+    employeeUid: user.uid,
+    companyId: selectedCompanyId,
+  });
 
-      const data = await res.json();
+  navigate(`/dashboard/employee/assets/${selectedCompanyId}`);
+} catch (err) {
+  console.error("save employee-company failed:", err);
+  alert(err?.response?.data?.message || "Failed to save company");
+}
 
-      if (!res.ok) {
-        alert(data?.message || "Failed to save company");
-        return;
-      }
-
-      navigate(`/dashboard/employee/assets/${selectedCompanyId}`);
-    } catch (err) {
-      console.error("save employee-company failed:", err);
-      alert("Network error while saving company");
-    }
   }
 
   if (!user) return <p className="p-6 text-sm text-gray-700">Please login.</p>;
