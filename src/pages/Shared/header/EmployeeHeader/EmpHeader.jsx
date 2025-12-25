@@ -12,7 +12,8 @@ export default function EmpHeader() {
  // console.log(user);
   const link = (
     <div className="flex gap-3">
-      <NavLink to="/dashboard/employee/home">Send Request</NavLink>
+      <NavLink to="/dashboard/employee/home">MyDashboard</NavLink>
+      <NavLink to="/dashboard/employee/send_Request">Send Request</NavLink>
       <NavLink to="/dashboard/employee/myrequest">Request status</NavLink>
       <NavLink to="/dashboard/employee/myasset">My Asset</NavLink>
      

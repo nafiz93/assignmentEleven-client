@@ -11,7 +11,6 @@ import Assetlist from "@/pages/Hrdashboard/Assetlist";
 import Allrequests from "@/pages/Hrdashboard/Allrequests";
 import Employeelist from "@/pages/Hrdashboard/Employeelist";
 import Hrprofile from "@/pages/Hrdashboard/Hrprofile";
-import EmployeeDashboard from "@/pages/employeedashboard/EmployeeDashboard";
 import Employeeassets from "@/pages/employeedashboard/Employeeassets";
 import Myrequest from "@/pages/employeedashboard/Myrequest";
 import Myasset from "@/pages/employeedashboard/Myasset";
@@ -20,6 +19,9 @@ import Privateroute from "./Privateroute";
 import Upgrade from "@/pages/Hrdashboard/Upgrade";
 import PaymentSuccess from "@/pages/Hrdashboard/PaymentSuccess";
 import PaymentCancel from "@/pages/Hrdashboard/PaymentCancel";
+import HrDashboardHome from "@/pages/Hrdashboard/HrDashboardHome";
+import Empdashboard from "@/pages/employeedashboard/Empdashboard";
+import EmployeeDashboard from "@/pages/employeedashboard/EmployeeDashboard";
 
 export const router = createBrowserRouter([
   {
@@ -41,29 +43,37 @@ export const router = createBrowserRouter([
     ),
     children: [
       {
-        path: "/dashboard/employee/home",
-        Component: EmployeeDashboard,
+        index: true,
+        Component: Empdashboard,
       },
       {
-        path: "/dashboard/employee/myrequest",
-        Component: Myrequest,
+        path: "send_Request",
+        Component: EmployeeDashboard,
       },
 
       {
-        path: "/dashboard/employee/myasset",
+        path: "home",
+        Component: Empdashboard,
+      },
+      {
+        path: "myrequest",
+        Component: Myrequest,
+      },
+      {
+        path: "myasset",
         Component: Myasset,
       },
       {
-        path: "/dashboard/employee/empprofile",
+        path: "empprofile",
         Component: Empprofile,
       },
       {
-        // IMPORTANT: :companyId (matches useParams() usage)
-        path: "/dashboard/employee/assets/:companyId",
+        path: "assets/:companyId",
         Component: Employeeassets,
       },
     ],
   },
+
   {
     path: "/dashboard/hr",
     element: (
@@ -71,27 +81,46 @@ export const router = createBrowserRouter([
         <DashboardHr />
       </Privateroute>
     ),
-
-    
     children: [
-      { path: "/dashboard/hr/addassets", Component: Addasset },
-      { path: "/dashboard/hr/upgrade", Component: Upgrade },
-      { path: "/dashboard/hr/assetlist", Component: Assetlist },
-      { path: "/dashboard/hr/allrequest", Component: Allrequests },
-      { path: "/dashboard/hr/employeelist", Component: Employeelist },
-      { path: "/dashboard/hr/profile", Component: Hrprofile },
-      
-    ],
-  },
+      {
+        index: true,
+        Component: HrDashboardHome,
+      },
 
-  {
-        path: "/payment-success",
-        element: <PaymentSuccess />,
+      {
+        path: "addassets",
+        Component: Addasset,
       },
       {
-        path: "/payment-cancel",
-        element: <PaymentCancel />,
+        path: "upgrade",
+        Component: Upgrade,
       },
+      {
+        path: "assetlist",
+        Component: Assetlist,
+      },
+      {
+        path: "allrequest",
+        Component: Allrequests,
+      },
+      {
+        path: "employeelist",
+        Component: Employeelist,
+      },
+      {
+        path: "profile",
+        Component: Hrprofile,
+      },
+    ],
+  },
+  {
+    path: "/payment-success",
+    element: <PaymentSuccess />,
+  },
+  {
+    path: "/payment-cancel",
+    element: <PaymentCancel />,
+  },
   {
     path: "/",
     Component: Authlayout,
